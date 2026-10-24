@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <title>/sol — Workers own the slices. You own the whole.</title>
+  <meta name="description" content="An agent skill for orchestrating application work through GPT-6.1 Sol workers. Slice, brief, launch, integrate, and verify—with explicit ownership and sandbox boundaries.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="/sol — Workers own the slices. You own the whole.">
+  <meta property="og:description" content="Orchestrate application work through GPT-6.1 Sol workers. One brief per slice. One orchestrator accountable for the whole.">
+  <meta property="og:url" content="https://cskwork.github.io/sol-skill/">
+  <meta property="og:site_name" content="/sol">
+  <link rel="canonical" href="https://cskwork.github.io/sol-skill/">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header wrap">
+    <a class="wordmark" href="#main" aria-label="Sol home">/sol<span class="wordmark-dot" aria-hidden="true"></span></a>
+    <nav aria-label="Main navigation">
+      <a href="#workflow">Workflow</a>
+      <a href="#install">Install</a>
+      <a href="https://github.com/cskwork/sol-skill">GitHub <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 12 12 4M4 4h8v8"/></svg></a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <div class="hero-title">
+        <h1 id="hero-title">Many slices.<br>One owner.</h1>
+        <p class="hero-summary">Orchestrate application work through GPT-6.1 Sol workers.</p>
+        <a class="primary-link" href="#install">Install the skill <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M8 3l5 5-5 5"/></svg></a>
+      </div>
+      <div class="hero-aside">
+        <p class="ownership">Workers own the slices.<br>You own the whole.</p>
+        <p>Your agent stays the orchestrator. It scopes the work, briefs Sol workers, then integrates their output and runs the checks itself.</p>
+        <dl class="runtime">
+          <div><dt>Model</dt><dd>GPT-6.1 Sol</dd></div>
+          <div><dt>Reasoning</dt><dd>High</dd></div>
+          <div><dt>Service tier</dt><dd>Fast</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="workflow-band" id="workflow" aria-labelledby="workflow-title">
+      <div class="wrap">
+        <div class="section-heading">
+          <h2 id="workflow-title">A clear path from task to proof.</h2>
+          <p>Parallel where independent.<br>Sequential where dependent.</p>
+        </div>
+        <ol class="workflow" aria-label="Orchestration workflow">
+          <li><span class="step-number" aria-hidden="true">01</span><h3>Orchestrator</h3><p>Own the outcome.</p></li>
+          <li><span class="step-number" aria-hidden="true">02</span><h3>Slice</h3><p>Separate files, state, and ordering.</p></li>
+          <li><span class="step-number" aria-hidden="true">03</span><h3>Brief</h3><p>Set ownership and exact checks.</p></li>
+          <li class="worker-step"><span class="step-number" aria-hidden="true">04</span><h3>Sol workers</h3><p>Run independent slices in parallel.</p><span class="worker-tracks" aria-hidden="true"><i></i><i></i><i></i></span></li>
+          <li><span class="step-number" aria-hidden="true">05</span><h3>Integrate / verify</h3><p>Review output. Run acceptance checks.</p></li>
+        </ol>
+        <p class="workflow-note">Explicit <code>/sol</code> sends every slice to Sol, including UI, frontend, and docs. It overrides model routing in <code>rules.md</code>.</p>
+      </div>
+    </section>
+
+    <section class="section wrap" id="install" aria-labelledby="install-title">
+      <div class="section-intro">
+        <h2 id="install-title">Install once. <br>Call with <code>/sol</code>.</h2>
+        <p>Clone into your agent’s skills directory. Then invoke <code>/sol</code> with the application work you want delegated.</p>
+      </div>
+      <div class="section-body">
+        <div class="code-block">
+          <div class="code-heading"><span>Install · shell</span><button type="button" data-copy="install-code" aria-label="Copy install command" hidden>Copy</button></div>
+          <pre><code id="install-code">git clone https://github.com/cskwork/sol-skill ~/.agents/skills/sol</code></pre>
+          <p class="copy-status" role="status"></p>
+        </div>
+        <div class="usage-line"><h3>In your agent</h3><code>/sol</code><p>Build, fix, backend, browser, or QA work.</p></div>
+        <h3 class="subheading">Check the worker runtime</h3>
+        <p>Preflight runs once. The Codex CLI must be installed and authenticated.</p>
+        <div class="code-block">
+          <div class="code-heading"><span>Preflight · shell</span><button type="button" data-copy="preflight-code" aria-label="Copy preflight command" hidden>Copy</button></div>
+          <pre><code id="preflight-code">command -v codex &amp;&amp; test -f ~/.codex/auth.json</code></pre>
+          <p class="copy-status" role="status"></p>
+        </div>
+        <p class="note">If preflight fails, stop and report the missing installation or authentication. Sign in with <code>codex login</code>.</p>
+      </div>
+    </section>
+
+    <section class="section wrap" id="launch" aria-labelledby="launch-title">
+      <div class="section-intro">
+        <h2 id="launch-title">Launch a worker. <br>Keep the boundary.</h2>
+        <p>One brief in. One report out. Launch each slice as a background task and wait for completion notifications.</p>
+        <p class="note">Already running <code>gpt-6.1-sol</code> at high reasoning in Codex? Use the host’s own subagents and skip this shell call.</p>
+      </div>
+      <div class="section-body">
+        <div class="code-block">
+          <div class="code-heading"><span>Worker launch · shell</span><button type="button" data-copy="launch-code" aria-label="Copy worker launch command" hidden>Copy</button></div>
+          <pre><code id="launch-code">codex exec -m gpt-6.1-sol -c model_reasoning_effort=high -c service_tier=fast \
+  -s workspace-write --skip-git-repo-check -C "&lt;repo&gt;" \
+  -o "&lt;scratch&gt;/&lt;slice&gt;.out.md" - &lt; "&lt;scratch&gt;/&lt;slice&gt;.brief.md"</code></pre>
+          <p class="copy-status" role="status"></p>
+        </div>
+        <p class="note">Replace <code>&lt;repo&gt;</code>, <code>&lt;scratch&gt;</code>, and <code>&lt;slice&gt;</code> with your repository, scratch directory, and slice name. The command is reproduced from <a href="https://github.com/cskwork/sol-skill/blob/main/SKILL.md">SKILL.md</a>.</p>
+        <div class="launch-details">
+          <div><h3>Independent slices</h3><p>Run in parallel only when they share no files, state, or ordering. Run dependent slices in sequence.</p></div>
+          <div><h3>Completion, not polling</h3><p>Block on completion notifications. Never short-poll the workers.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section wrap" id="brief" aria-labelledby="brief-title">
+      <div class="section-intro">
+        <h2 id="brief-title">The brief is <br>the handoff.</h2>
+        <p>Write one brief per slice to <code>&lt;scratch&gt;/&lt;slice&gt;.brief.md</code>. Make the outcome, owned paths, and acceptance checks explicit.</p>
+      </div>
+      <div class="section-body">
+        <div class="code-block">
+          <div class="code-heading"><span>Brief template · Markdown</span><button type="button" data-copy="brief-code" aria-label="Copy brief template" hidden>Copy</button></div>
+          <pre><code id="brief-code">Objective: &lt;one outcome&gt;
+Owned paths: &lt;only files/dirs this worker may change&gt;
+Interfaces to honor: &lt;APIs, types, contracts that must not change&gt;
+Constraints: &lt;repo rules, no git push/merge, no store uploads&gt;
+Acceptance: &lt;exact commands/checks that must pass&gt;
+Known facts: &lt;verified findings, file:line&gt;
+Report once at the end: changed files, checks run with results, open problems. No progress messages.</code></pre>
+          <p class="copy-status" role="status"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="safety-band" aria-labelledby="safety-title">
+      <div class="wrap safety-layout">
+        <div><h2 id="safety-title">Delegated work.<br>Retained responsibility.</h2><p>The orchestrator owns integration, verification, and authorized delivery.</p></div>
+        <ul class="safety-rules">
+          <li><h3>Keep the sandbox</h3><p>Keep <code>-s workspace-write</code>. Never use <code>--dangerously-bypass-approvals-and-sandbox</code>.</p></li>
+          <li><h3>Keep delivery authorized</h3><p>Workers never commit to <code>main</code>, push, merge, or publish. The orchestrator does that only when authorized.</p></li>
+          <li><h3>Use actual Sol workers</h3><p>Never use a Claude/Opus subagent as a Sol stand-in.</p></li>
+          <li><h3>Verify the result yourself</h3><p>Read each <code>.out.md</code>, confirm <code>git diff --stat</code> touches only owned paths, then run acceptance checks yourself. A failed slice gets one re-brief with evidence; report a second failure.</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="done wrap" aria-labelledby="done-title">
+      <h2 id="done-title">Done means checked.</h2>
+      <p>Every slice’s acceptance checks pass under your own run, or the failing slice is reported with its evidence and what remains.</p>
+      <a class="source-link" href="https://github.com/cskwork/sol-skill/blob/main/SKILL.md">Read the full skill <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 12 12 4M4 4h8v8"/></svg></a>
+    </section>
+  </main>
+
+  <footer class="site-footer wrap"><span class="footer-mark">/sol</span><p>Slice. Brief. Launch. Integrate. Verify.</p><a href="https://github.com/cskwork/sol-skill">Source on GitHub</a></footer>
+  <script>
+    document.querySelectorAll('[data-copy]').forEach((button) => {
+      button.hidden = false;
+      button.addEventListener('click', async () => {
+        const code = document.getElementById(button.dataset.copy);
+        const status = button.closest('.code-block').querySelector('.copy-status');
+        let copied = false;
+        try {
+          await navigator.clipboard.writeText(code.textContent);
+          copied = true;
+        } catch {
+          const selection = window.getSelection();
+          const range = document.createRange();
+          range.selectNodeContents(code);
+          selection.removeAllRanges();
+          selection.addRange(range);
+          try { copied = document.execCommand('copy'); } catch { /* Keep code selected for manual copy. */ }
+          if (copied) selection.removeAllRanges();
+        }
+        status.textContent = copied ? 'Copied to clipboard.' : 'Copy unavailable. Select the code and copy manually.';
+      });
+    });
+  </script>
+</body>
+</html>
