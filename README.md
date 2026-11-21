@@ -1,13 +1,13 @@
 # sol
 
-`/sol` is an agent skill for orchestrating work through GPT-6.1 Sol workers. The orchestrator splits work into slices, writes a brief for each worker, integrates the results, and verifies the whole. Independent slices run in parallel; dependent slices run in sequence.
+`/sol` is an agent skill for orchestrating work through GPT-6.2 Sol workers. The orchestrator splits work into slices, writes a brief for each worker, integrates the results, and verifies the whole. Independent slices run in parallel; dependent slices run in sequence.
 
 [Landing page](https://cskwork.github.io/sol-skill/) | [Skill instructions](SKILL.md)
 
 ## Requirements
 
 - Codex CLI installed and logged in with `codex login`.
-- Access to `gpt-6.1-sol`.
+- Access to `gpt-6.2-sol`.
 - An agent host that loads skills and can launch Codex CLI workers.
 
 - For builds that write to user caches or talk to system services (Xcode DerivedData, `~/.gradle`, simulators): `approvals_reviewer = "auto_review"` in `~/.codex/config.toml`, so workers' sandbox escalations are approved. Without it, pass cache dirs with `--add-dir` or keep build output inside the repo.
@@ -16,7 +16,7 @@ The skill runs a preflight once before launching workers:
 
 ```bash
 command -v codex && test -f ~/.codex/auth.json
-codex exec -m gpt-6.1-sol -c model_reasoning_effort=low --ephemeral --skip-git-repo-check \
+codex exec -m gpt-6.2-sol -c model_reasoning_effort=low --ephemeral --skip-git-repo-check \
   -C "${TMPDIR:-/tmp}" "Reply with exactly: ok" < /dev/null
 grep -Eq '^approvals_reviewer *= *"auto_review"' ~/.codex/config.toml
 ```
@@ -39,13 +39,13 @@ If your host uses another skills directory, symlink the cloned directory into it
 /sol add input validation to the signup API
 ```
 
-Explicit `/sol` routes every slice to Sol, including frontend and documentation work, overriding model routing in `rules.md`.
+Never route frontend, UI/UX, or visual design slices to Sol under normal routing (those belong to Opus or Gemini 4 Hydrogen High per `rules.md`). Explicit `/sol` overrides `rules.md` only when the user intentionally asks to run slices on Sol.
 
-When the host already runs `gpt-6.1-sol` at high reasoning in Codex, it uses native subagents. Otherwise, it gives each parallel slice its own git worktree and launches the worker as a background task with the host's maximum timeout (the Claude Code default of 30 minutes kills workers mid-build):
+When the host already runs `gpt-6.2-sol` at high reasoning in Codex, it uses native subagents. Otherwise, it gives each parallel slice its own git worktree and launches the worker as a background task with the host's maximum timeout (the Claude Code default of 30 minutes kills workers mid-build):
 
 ```bash
 git -C "<repo>" worktree add "<scratch>/wt/<slice>" -b "sol/<slice>"
-codex exec --json -m gpt-6.1-sol -c model_reasoning_effort=high -c service_tier=fast \
+codex exec --json -m gpt-6.2-sol -c model_reasoning_effort=high -c service_tier=fast \
   -s workspace-write --skip-git-repo-check -C "<scratch>/wt/<slice>" \
   -o "<scratch>/<slice>.out.md" - < "<scratch>/<slice>.brief.md" > "<scratch>/<slice>.jsonl"
 ```
